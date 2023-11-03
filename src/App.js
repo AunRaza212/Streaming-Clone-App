@@ -21,6 +21,16 @@ function App() {
   useEffect(() => {
     searchMovies();
   }, []);
+  const handleSearch = () => {
+    searchMovies(searchTerm);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      // Trigger the search when Enter key is pressed
+      handleSearch();
+    }
+  };
 
   return (
     <div className="app">
@@ -30,15 +40,14 @@ function App() {
           placeholder="Search for Movies"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyPress} 
         />
         <img
           src={SearchIcon}
           alt="search"
           onClick={() => {
-            
             searchMovies(searchTerm);
           }}
-       
         />
       </div>
       {movies?.length > 0 ? (
